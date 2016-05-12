@@ -10,6 +10,7 @@
 		845498921CDE6BAC0003C9D8 /* ISTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 845498911CDE6BAC0003C9D8 /* ISTimeline.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		845498991CDE6BAC0003C9D8 /* ISTimeline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8454988E1CDE6BAC0003C9D8 /* ISTimeline.framework */; };
 		8454989E1CDE6BAC0003C9D8 /* ISTimelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8454989D1CDE6BAC0003C9D8 /* ISTimelineTests.swift */; };
+		845498A91CDE813E0003C9D8 /* ISTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845498A81CDE813E0003C9D8 /* ISTimeline.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		845498981CDE6BAC0003C9D8 /* ISTimelineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ISTimelineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8454989D1CDE6BAC0003C9D8 /* ISTimelineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISTimelineTests.swift; sourceTree = "<group>"; };
 		8454989F1CDE6BAC0003C9D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		845498A81CDE813E0003C9D8 /* ISTimeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISTimeline.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				845498911CDE6BAC0003C9D8 /* ISTimeline.h */,
+				845498A81CDE813E0003C9D8 /* ISTimeline.swift */,
 				845498931CDE6BAC0003C9D8 /* Info.plist */,
 			);
 			path = ISTimeline;
@@ -194,6 +197,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				845498A91CDE813E0003C9D8 /* ISTimeline.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +314,7 @@
 		845498A31CDE6BAC0003C9D8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -320,12 +325,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.tripwire.istimeline;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		845498A41CDE6BAC0003C9D8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
