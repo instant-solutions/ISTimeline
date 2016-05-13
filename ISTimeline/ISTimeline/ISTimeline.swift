@@ -10,17 +10,63 @@ import UIKit
 
 class ISTimeline: UIView {
 
-    let lineWidth:CGFloat = 2.0
-    let lineColor = UIColor.lightGrayColor()
-    var pointDiameter:CGFloat = 6.0
+    var pointDiameter:CGFloat = 6.0 {
+        didSet {
+            if (pointDiameter < 0.0) {
+                pointDiameter = 0.0
+            } else if (pointDiameter > 100.0) {
+                pointDiameter = 100.0
+            }
+        }
+    }
     
-    let bubbleColor = UIColor.lightGrayColor()
-    let bubbleRadius:CGFloat = 2.0
-    var bubbleHeight:CGFloat = 30.0
+    var lineWidth:CGFloat = 2.0 {
+        didSet {
+            if (lineWidth < 0.0) {
+                lineWidth = 0.0
+            } else if(lineWidth > 20.0) {
+                lineWidth = 20.0
+            }
+        }
+    }
     
-    let textColor = UIColor.whiteColor()
+    var bubbleHeight:CGFloat = 30.0 {
+        didSet {
+            if (bubbleHeight < 20.0) {
+                bubbleHeight = 20.0
+            } else if (bubbleHeight > 100.0) {
+                bubbleHeight = 100.0
+            }
+        }
+    }
     
-    var points = ["start", "point", "end"]
+    var bubbleRadius:CGFloat = 2.0 {
+        didSet {
+            if (bubbleRadius < 0.0) {
+                bubbleRadius = 0.0;
+            } else if (bubbleRadius > 6.0) {
+                bubbleRadius = 6.0
+            }
+        }
+    }
+    
+    var lineColor = UIColor.lightGrayColor()
+    var bubbleColor = UIColor.lightGrayColor()
+    var textColor = UIColor.whiteColor()
+    
+    var points = ["", ""] {
+        didSet {
+            switch points.count {
+            case 0:
+                points = ["", ""]
+            case 1:
+                points.append("")
+            default:
+                // nothing to do :)
+                break
+            }
+        }
+    }
     
     override func drawRect(rect: CGRect) {
         let ctx: CGContextRef = UIGraphicsGetCurrentContext()!
