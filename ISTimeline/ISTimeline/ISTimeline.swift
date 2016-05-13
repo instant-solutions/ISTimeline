@@ -54,13 +54,13 @@ class ISTimeline: UIView {
     var bubbleColor = UIColor.lightGrayColor()
     var textColor = UIColor.whiteColor()
     
-    var points = ["", ""] {
+    var points:[ISPoint] = [ISPoint(title: "", description: "", touchUpInside: nil), ISPoint(title: "", description: "", touchUpInside: nil)] {
         didSet {
             switch points.count {
             case 0:
-                points = ["", ""]
+                points = [ISPoint(title: "", description: "", touchUpInside: nil), ISPoint(title: "", description: "", touchUpInside: nil)]
             case 1:
-                points.append("")
+                points.append(ISPoint(title: "", description: "", touchUpInside: nil))
             default:
                 // nothing to do :)
                 break
@@ -86,7 +86,7 @@ class ISTimeline: UIView {
                 drawLine(start, end: end, color: lineColor)
             }
             drawPoint(arr[i], color: UIColor.clearColor())
-            let text = points[i]
+            let text = points[i].title
             if (text.characters.count > 0) {
                 drawBubble(arr[i], color: bubbleColor, text: text)
             }
