@@ -43,7 +43,7 @@ class ISTimeline: UIView {
     var bubbleRadius:CGFloat = 2.0 {
         didSet {
             if (bubbleRadius < 0.0) {
-                bubbleRadius = 0.0;
+                bubbleRadius = 0.0
             } else if (bubbleRadius > 6.0) {
                 bubbleRadius = 6.0
             }
@@ -157,24 +157,17 @@ class ISTimeline: UIView {
         let rect = CGRectMake(cPoint.x + 8, cPoint.y, label.intrinsicContentSize().width + 20, bubbleHeight)
         let path = UIBezierPath(roundedRect: rect, cornerRadius: bubbleRadius)
         
-        let rectLayer = CAShapeLayer()
-        rectLayer.path = path.CGPath
-        rectLayer.fillColor = color.CGColor
+        let startPoint = CGPointMake(cPoint.x + 8, cPoint.y + rect.height / 2 - 8)
+        path.moveToPoint(startPoint)
+        path.addLineToPoint(startPoint)
+        path.addLineToPoint(CGPointMake(cPoint.x, cPoint.y + rect.height / 2))
+        path.addLineToPoint(CGPointMake(cPoint.x + 8, cPoint.y + rect.height / 2 + 8))
         
-        self.layer.addSublayer(rectLayer)
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = path.CGPath
+        shapeLayer.fillColor = color.CGColor
         
-        let triangle = UIBezierPath()
-        let initialPoint = CGPointMake(cPoint.x + 8, cPoint.y + rect.height / 2 - 8)
-        triangle.moveToPoint(initialPoint)
-        triangle.addLineToPoint(initialPoint)
-        triangle.addLineToPoint(CGPointMake(cPoint.x, cPoint.y + rect.height / 2))
-        triangle.addLineToPoint(CGPointMake(cPoint.x + 8, cPoint.y + rect.height / 2 + 8))
-        
-        let triangleLayer = CAShapeLayer()
-        triangleLayer.path = triangle.CGPath
-        triangleLayer.fillColor = color.CGColor
-        
-        self.layer.addSublayer(triangleLayer)
+        self.layer.addSublayer(shapeLayer)
         
         let labelRect = CGRectMake(rect.origin.x + 10, rect.origin.y + 1, rect.size.width - 10, rect.size.height - 1)
         label.frame = labelRect
