@@ -52,7 +52,8 @@ class ISTimeline: UIView {
     
     var lineColor = UIColor.lightGrayColor()
     var bubbleColor = UIColor.lightGrayColor()
-    var textColor = UIColor.whiteColor()
+    var titleColor = UIColor.whiteColor()
+    var descriptionColor = UIColor.lightGrayColor()
     
     var points:[ISPoint] = [ISPoint(title: "", description: "", touchUpInside: nil), ISPoint(title: "", description: "", touchUpInside: nil)] {
         didSet {
@@ -90,7 +91,7 @@ class ISTimeline: UIView {
             drawPoint(arr[i], color: UIColor.clearColor())
             let text = points[i].title
             if (text.characters.count > 0) {
-                drawBubble(arr[i], color: bubbleColor, text: text)
+                drawBubble(arr[i], color: bubbleColor, title: text, description: points[i].description)
             }
         }
         
@@ -146,17 +147,17 @@ class ISTimeline: UIView {
         self.layer.addSublayer(shapeLayer)
     }
     
-    private func drawBubble(point:CGPoint, color:UIColor, text:String) {
+    private func drawBubble(point:CGPoint, color:UIColor, title:String, description:String) {
         var cPoint = point
         cPoint.x += pointDiameter + lineWidth / 2 + 5
         cPoint.y -= bubbleHeight / 2 - pointDiameter / 2
         
-        let label = UILabel()
-        label.text = text
-        label.textColor = textColor
-        label.font = UIFont.boldSystemFontOfSize(12.0)
+        let titleLabel = UILabel()
+        titleLabel.text = title
+        titleLabel.textColor = titleColor
+        titleLabel.font = UIFont.boldSystemFontOfSize(12.0)
         
-        let rect = CGRectMake(cPoint.x + 8, cPoint.y, label.intrinsicContentSize().width + 20, bubbleHeight)
+        let rect = CGRectMake(cPoint.x + 8, cPoint.y, titleLabel.intrinsicContentSize().width + 20, bubbleHeight)
         let path = UIBezierPath(roundedRect: rect, cornerRadius: bubbleRadius)
         
         let startPoint = CGPointMake(cPoint.x + 8, cPoint.y + rect.height / 2 - 8)
@@ -172,9 +173,21 @@ class ISTimeline: UIView {
         self.layer.addSublayer(shapeLayer)
         bubbleRects.append(rect)
         
-        let labelRect = CGRectMake(rect.origin.x + 10, rect.origin.y + 1, rect.size.width - 10, rect.size.height - 1)
-        label.frame = labelRect
-        self.addSubview(label)
+        let titleRect = CGRectMake(rect.origin.x + 10, rect.origin.y + 1, rect.size.width - 15, rect.size.height - 1)
+        titleLabel.frame = titleRect
+        self.addSubview(titleLabel)
+        
+        let descriptionLabel = UILabel()
+        descriptionLabel.text = description
+        descriptionLabel.textColor = descriptionColor
+        descriptionLabel.font = UIFont.systemFontOfSize(10.0)
+        descriptionLabel.lineBreakMode = .ByWordWrapping
+        descriptionLabel.numberOfLines = 0
+        descriptionLabel.preferredMaxLayoutWidth = self.bounds.width - rect.origin.x - 10
+        
+        let descriptionRect = CGRectMake(rect.origin.x, rect.origin.y + bubbleHeight + 5, descriptionLabel.intrinsicContentSize().width, descriptionLabel.intrinsicContentSize().height)
+        descriptionLabel.frame = descriptionRect
+        self.addSubview(descriptionLabel)
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
