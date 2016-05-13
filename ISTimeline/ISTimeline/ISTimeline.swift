@@ -68,6 +68,8 @@ class ISTimeline: UIView {
         }
     }
     
+    private var bubbleRects:[CGRect] = []
+    
     override func drawRect(rect: CGRect) {
         let ctx: CGContextRef = UIGraphicsGetCurrentContext()!
         CGContextSaveGState(ctx)
@@ -168,9 +170,20 @@ class ISTimeline: UIView {
         shapeLayer.fillColor = color.CGColor
         
         self.layer.addSublayer(shapeLayer)
+        bubbleRects.append(rect)
         
         let labelRect = CGRectMake(rect.origin.x + 10, rect.origin.y + 1, rect.size.width - 10, rect.size.height - 1)
         label.frame = labelRect
         self.addSubview(label)
+    }
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let point = touches.first!.locationInView(self)
+        for (index, rect) in bubbleRects.enumerate() {
+            if (rect.contains(point)) {
+                points[index].touchUpInside?(point: points[index])
+                break
+            }
+        }
     }
 }
