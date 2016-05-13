@@ -10,17 +10,17 @@ import UIKit
 
 class ISTimeline: UIView {
 
-    let diameter:CGFloat = 6.0
     let lineWidth:CGFloat = 2.0
     let lineColor = UIColor.lightGrayColor()
+    var pointDiameter:CGFloat = 6.0
     
     let bubbleColor = UIColor.lightGrayColor()
     let bubbleRadius:CGFloat = 2.0
+    var bubbleHeight:CGFloat = 30.0
+    
     let textColor = UIColor.whiteColor()
     
     var points = ["start", "point", "end"]
-    
-    let margin:CGFloat = 30
     
     override func drawRect(rect: CGRect) {
         let ctx: CGContextRef = UIGraphicsGetCurrentContext()!
@@ -31,8 +31,8 @@ class ISTimeline: UIView {
         for i in 0 ..< arr.count {
             if (i < arr.count - 1) {
                 var start = arr[i]
-                start.x += diameter / 2
-                start.y += diameter
+                start.x += pointDiameter / 2
+                start.y += pointDiameter
                 
                 var end = arr[i + 1]
                 end.x = start.x
@@ -40,7 +40,10 @@ class ISTimeline: UIView {
                 drawLine(start, end: end, color: lineColor)
             }
             drawPoint(arr[i], color: UIColor.clearColor())
-            drawBubble(arr[i], color: bubbleColor, text: points[i])
+            let text = points[i]
+            if (text.characters.count > 0) {
+                drawBubble(arr[i], color: bubbleColor, text: text)
+            }
         }
         
         CGContextClosePath(ctx)
@@ -55,16 +58,16 @@ class ISTimeline: UIView {
             case 0:
                 offset = 0.0
             case points.count - 1:
-                offset = diameter
+                offset = pointDiameter
             default:
-                offset = diameter / 2.0
+                offset = pointDiameter / 2.0
             }
             offset -= self.bounds.origin.y
-            offset -= margin / 2
+            offset -= bubbleHeight / 2.0
             
-            let segment:CGFloat = (self.bounds.height - margin) / CGFloat(points.count - 1)
+            let segment:CGFloat = (self.bounds.height - bubbleHeight) / CGFloat(points.count - 1)
             let y:CGFloat = segment * CGFloat(i) - offset
-            let p = CGPointMake(self.bounds.origin.x, y)
+            let p = CGPointMake(self.bounds.origin.x + lineWidth / 2, y)
             arr.append(p)
         }
         return arr
@@ -84,7 +87,7 @@ class ISTimeline: UIView {
     }
     
     private func drawPoint(point:CGPoint, color:UIColor) {
-        let path = UIBezierPath(ovalInRect: CGRect(x: point.x, y: point.y, width: diameter, height: diameter))
+        let path = UIBezierPath(ovalInRect: CGRect(x: point.x, y: point.y, width: pointDiameter, height: pointDiameter))
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.CGPath
@@ -97,15 +100,15 @@ class ISTimeline: UIView {
     
     private func drawBubble(point:CGPoint, color:UIColor, text:String) {
         var cPoint = point
-        cPoint.x += diameter + 5
-        cPoint.y -= 12
+        cPoint.x += pointDiameter + lineWidth / 2 + 5
+        cPoint.y -= bubbleHeight / 2 - pointDiameter / 2
         
         let label = UILabel()
         label.text = text
         label.textColor = textColor
         label.font = UIFont.boldSystemFontOfSize(12.0)
         
-        let rect = CGRectMake(cPoint.x + 8, cPoint.y, label.intrinsicContentSize().width + margin - 10, 30)
+        let rect = CGRectMake(cPoint.x + 8, cPoint.y, label.intrinsicContentSize().width + 20, bubbleHeight)
         let path = UIBezierPath(roundedRect: rect, cornerRadius: bubbleRadius)
         
         let rectLayer = CAShapeLayer()
