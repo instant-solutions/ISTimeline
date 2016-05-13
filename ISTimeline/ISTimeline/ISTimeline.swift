@@ -157,7 +157,12 @@ class ISTimeline: UIView {
         titleLabel.textColor = titleColor
         titleLabel.font = UIFont.boldSystemFontOfSize(12.0)
         
-        let rect = CGRectMake(cPoint.x + 8, cPoint.y, titleLabel.intrinsicContentSize().width + 20, bubbleHeight)
+        let maxTitleWidth = self.bounds.width - cPoint.x - 2
+        var titleWidth = titleLabel.intrinsicContentSize().width + 20
+        if (titleWidth > maxTitleWidth) {
+            titleWidth = maxTitleWidth
+        }
+        let rect = CGRectMake(cPoint.x + 8, cPoint.y, titleWidth, bubbleHeight)
         let path = UIBezierPath(roundedRect: rect, cornerRadius: bubbleRadius)
         
         let startPoint = CGPointMake(cPoint.x + 8, cPoint.y + rect.height / 2 - 8)
