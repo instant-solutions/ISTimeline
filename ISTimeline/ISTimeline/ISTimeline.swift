@@ -96,7 +96,7 @@ class ISTimeline: UIScrollView {
             
             let point = CGPointMake(self.bounds.origin.x + lineWidth / 2, y + (titleHeight + gap) / 2)
             
-            let maxTitleWidth = self.bounds.width - pointDiameter - gap * 1.5
+            let maxTitleWidth = self.bounds.width - pointDiameter - lineWidth - gap * 1.5
             var titleWidth = titleLabel.intrinsicContentSize().width + 20
             if (titleWidth > maxTitleWidth) {
                 titleWidth = maxTitleWidth
@@ -112,7 +112,7 @@ class ISTimeline: UIScrollView {
                 descriptionRect = CGRectMake(
                     bubbleRect.origin.x,
                     bubbleRect.origin.y + bubbleRect.height + 3,
-                    self.bounds.width - pointDiameter - gap * 1.5,
+                    self.bounds.width - pointDiameter - lineWidth - gap * 1.5,
                     descriptionLabel!.intrinsicContentSize().height)
             }
             
@@ -121,6 +121,7 @@ class ISTimeline: UIScrollView {
             y += height
             y += gap * 2.2 // section gap
         }
+        y += pointDiameter / 2
         self.contentSize = CGSizeMake(self.bounds.width, y)
     }
     
@@ -130,7 +131,7 @@ class ISTimeline: UIScrollView {
         titleLabel.font = UIFont.boldSystemFontOfSize(12.0)
         titleLabel.lineBreakMode = .ByWordWrapping
         titleLabel.numberOfLines = 0
-        titleLabel.preferredMaxLayoutWidth = self.bounds.width
+        titleLabel.preferredMaxLayoutWidth = self.bounds.width - pointDiameter - lineWidth - 15 * 1.5
         return titleLabel
     }
     
@@ -142,7 +143,7 @@ class ISTimeline: UIScrollView {
             descriptionLabel.font = UIFont.systemFontOfSize(10.0)
             descriptionLabel.lineBreakMode = .ByWordWrapping
             descriptionLabel.numberOfLines = 0
-            descriptionLabel.preferredMaxLayoutWidth = self.bounds.width
+            descriptionLabel.preferredMaxLayoutWidth = self.bounds.width - pointDiameter - lineWidth - 15 * 1.5
             return descriptionLabel
         }
         return nil
