@@ -51,7 +51,7 @@ class ISTimeline: UIScrollView {
         }
     }
     
-    private var sections:[(point:CGPoint, rect:CGRect, titleLabel:UILabel, descriptionLabel:UILabel?)] = []
+    private var sections:[(point:CGPoint, bubbleRect:CGRect, descriptionRect:CGRect?, titleLabel:UILabel, descriptionLabel:UILabel?)] = []
     
     override func drawRect(rect: CGRect) {
         let ctx: CGContextRef = UIGraphicsGetCurrentContext()!
@@ -68,14 +68,12 @@ class ISTimeline: UIScrollView {
                 
                 drawLine(start, end: end, color: lineColor)
             }
-            let rect = sections[i].rect
             drawPoint(sections[i].point, color: .clearColor())
-            drawBubble(rect, backgroundColor: bubbleColor, textColor:titleColor, titleLabel: sections[i].titleLabel)
+            drawBubble(sections[i].bubbleRect, backgroundColor: bubbleColor, textColor:titleColor, titleLabel: sections[i].titleLabel)
             
             let descriptionLabel = sections[i].descriptionLabel
             if (descriptionLabel != nil) {
-                let descriptionRect = CGRectMake(rect.origin.x, rect.origin.y + rect.height + 3, rect.width, descriptionLabel!.intrinsicContentSize().height)
-                drawDescription(descriptionRect, textColor: descriptionColor, descriptionLabel: sections[i].descriptionLabel!)
+                drawDescription(sections[i].descriptionRect!, textColor: descriptionColor, descriptionLabel: sections[i].descriptionLabel!)
             }
         }
         
@@ -97,12 +95,28 @@ class ISTimeline: UIScrollView {
             }
             
             let point = CGPointMake(self.bounds.origin.x + lineWidth / 2, y + (titleHeight + gap) / 2)
-            let rect = CGRectMake(
+            
+            let maxTitleWidth = self.bounds.width - pointDiameter - gap * 1.5
+            var titleWidth = titleLabel.intrinsicContentSize().width + 20
+            if (titleWidth > maxTitleWidth) {
+                titleWidth = maxTitleWidth
+            }
+            let bubbleRect = CGRectMake(
                 point.x + pointDiameter + lineWidth / 2 + 13,
                 y + pointDiameter / 2,
-                self.bounds.width - pointDiameter - gap * 1.5,
+                titleWidth,
                 titleHeight + gap)
-            sections.append((point, rect, titleLabel, descriptionLabel))
+            
+            var descriptionRect:CGRect?
+            if descriptionLabel != nil {
+                descriptionRect = CGRectMake(
+                    bubbleRect.origin.x,
+                    bubbleRect.origin.y + bubbleRect.height + 3,
+                    self.bounds.width - pointDiameter - gap * 1.5,
+                    descriptionLabel!.intrinsicContentSize().height)
+            }
+            
+            sections.append((point, bubbleRect, descriptionRect, titleLabel, descriptionLabel))
             
             y += height
             y += gap * 2.2 // section gap
@@ -189,7 +203,7 @@ class ISTimeline: UIScrollView {
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let point = touches.first!.locationInView(self)
         for (index, section) in sections.enumerate() {
-            if (section.rect.contains(point)) {
+            if (section.bubbleRect.contains(point)) {
                 points[index].touchUpInside?(point: points[index])
                 break
             }
