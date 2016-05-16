@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ISTimeline: UIView {
+class ISTimeline: UIScrollView {
     
     var pointDiameter:CGFloat = 6.0 {
         didSet {
@@ -107,6 +107,7 @@ class ISTimeline: UIView {
             y += height
             y += gap * 2.2 // section gap
         }
+        self.contentSize = CGSizeMake(self.bounds.width, y)
     }
     
     private func buildTitleLabel(index:Int) -> UILabel {
