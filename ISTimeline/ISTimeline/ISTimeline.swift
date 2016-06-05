@@ -47,14 +47,29 @@ class ISTimeline: UIScrollView {
     
     var points:[ISPoint] = [] {
         didSet {
+            self.layer.sublayers?.forEach({ (let layer:CALayer) in
+                if layer.isKindOfClass(CAShapeLayer) {
+                    layer.removeFromSuperlayer()
+                }
+            })
+            self.subviews.forEach { (let view:UIView) in
+                view.removeFromSuperview()
+            }
+            
+            self.contentSize = CGSizeZero
+            
+            sections.removeAll()
             buildSections()
+            
+            layer.setNeedsDisplay()
+            layer.displayIfNeeded()
         }
     }
     
     private var sections:[(point:CGPoint, bubbleRect:CGRect, descriptionRect:CGRect?, titleLabel:UILabel, descriptionLabel:UILabel?)] = []
     
     override func drawRect(rect: CGRect) {
-        let ctx: CGContextRef = UIGraphicsGetCurrentContext()!
+        let ctx:CGContextRef = UIGraphicsGetCurrentContext()!
         CGContextSaveGState(ctx)
         
         for i in 0 ..< sections.count {
@@ -77,7 +92,6 @@ class ISTimeline: UIScrollView {
             }
         }
         
-        CGContextClosePath(ctx)
         CGContextRestoreGState(ctx)
     }
     
