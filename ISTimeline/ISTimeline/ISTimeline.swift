@@ -40,7 +40,6 @@ class ISTimeline: UIScrollView {
         }
     }
     
-    var lineColor:UIColor = .init(red: 0.75, green: 0.75, blue: 0.75, alpha: 1.0)
     var bubbleColor:UIColor = .init(red: 0.75, green: 0.75, blue: 0.75, alpha: 1.0)
     var titleColor:UIColor = .whiteColor()
     var descriptionColor:UIColor = .grayColor()
@@ -66,7 +65,7 @@ class ISTimeline: UIScrollView {
         }
     }
     
-    private var sections:[(point:CGPoint, bubbleRect:CGRect, descriptionRect:CGRect?, titleLabel:UILabel, descriptionLabel:UILabel?)] = []
+    private var sections:[(point:CGPoint, bubbleRect:CGRect, descriptionRect:CGRect?, titleLabel:UILabel, descriptionLabel:UILabel?, pointColor:CGColor, lineColor:CGColor, fill:Bool)] = []
     
     override func drawRect(rect: CGRect) {
         let ctx:CGContextRef = UIGraphicsGetCurrentContext()!
@@ -81,9 +80,9 @@ class ISTimeline: UIScrollView {
                 var end = sections[i + 1].point
                 end.x = start.x
                 
-                drawLine(start, end: end, color: lineColor)
+                drawLine(start, end: end, color: sections[i].lineColor)
             }
-            drawPoint(sections[i].point, color: .clearColor())
+            drawPoint(sections[i].point, color: sections[i].pointColor, fill: sections[i].fill)
             drawBubble(sections[i].bubbleRect, backgroundColor: bubbleColor, textColor:titleColor, titleLabel: sections[i].titleLabel)
             
             let descriptionLabel = sections[i].descriptionLabel
@@ -130,7 +129,7 @@ class ISTimeline: UIScrollView {
                     descriptionLabel!.intrinsicContentSize().height)
             }
             
-            sections.append((point, bubbleRect, descriptionRect, titleLabel, descriptionLabel))
+            sections.append((point, bubbleRect, descriptionRect, titleLabel, descriptionLabel, points[i].pointColor.CGColor, points[i].lineColor.CGColor, points[i].fill))
             
             y += height
             y += gap * 2.2 // section gap
@@ -163,26 +162,26 @@ class ISTimeline: UIScrollView {
         return nil
     }
     
-    private func drawLine(start:CGPoint, end:CGPoint, color:UIColor) {
+    private func drawLine(start:CGPoint, end:CGPoint, color:CGColor) {
         let path = UIBezierPath()
         path.moveToPoint(start)
         path.addLineToPoint(end)
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.CGPath
-        shapeLayer.strokeColor = color.CGColor
+        shapeLayer.strokeColor = color
         shapeLayer.lineWidth = lineWidth
         
         self.layer.addSublayer(shapeLayer)
     }
     
-    private func drawPoint(point:CGPoint, color:UIColor) {
+    private func drawPoint(point:CGPoint, color:CGColor, fill:Bool) {
         let path = UIBezierPath(ovalInRect: CGRect(x: point.x, y: point.y, width: pointDiameter, height: pointDiameter))
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.CGPath
-        shapeLayer.strokeColor = lineColor.CGColor
-        shapeLayer.fillColor = color.CGColor
+        shapeLayer.strokeColor = color
+        shapeLayer.fillColor = fill ? color : UIColor.clearColor().CGColor
         shapeLayer.lineWidth = lineWidth
         
         self.layer.addSublayer(shapeLayer)
