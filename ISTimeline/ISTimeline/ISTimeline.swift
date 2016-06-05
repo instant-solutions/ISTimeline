@@ -40,10 +40,10 @@ class ISTimeline: UIScrollView {
         }
     }
     
-    var lineColor:UIColor = .lightGrayColor()
-    var bubbleColor:UIColor = .lightGrayColor()
+    var lineColor:UIColor = .init(red: 0.75, green: 0.75, blue: 0.75, alpha: 1.0)
+    var bubbleColor:UIColor = .init(red: 0.75, green: 0.75, blue: 0.75, alpha: 1.0)
     var titleColor:UIColor = .whiteColor()
-    var descriptionColor:UIColor = .lightGrayColor()
+    var descriptionColor:UIColor = .grayColor()
     
     var points:[ISPoint] = [] {
         didSet {
