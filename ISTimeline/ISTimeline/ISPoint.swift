@@ -6,6 +6,8 @@
 //  Copyright © 2016 instant:solutions. All rights reserved.
 //
 
+import UIKit
+
 class ISPoint {
     
     var title:String

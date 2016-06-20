@@ -134,6 +134,9 @@ class ISTimeline: UIScrollView {
             y += height
             y += gap * 2.2 // section gap
         }
+        self.setNeedsLayout()
+        self.layoutIfNeeded()
+        
         y += pointDiameter / 2
         self.contentSize = CGSizeMake(self.bounds.width, y)
     }
