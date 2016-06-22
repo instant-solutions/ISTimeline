@@ -67,6 +67,20 @@ class ISTimeline: UIScrollView {
     
     private var sections:[(point:CGPoint, bubbleRect:CGRect, descriptionRect:CGRect?, titleLabel:UILabel, descriptionLabel:UILabel?, pointColor:CGColor, lineColor:CGColor, fill:Bool)] = []
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        initialize()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initialize()
+    }
+    
+    private func initialize() {
+        self.clipsToBounds = true
+    }
+    
     override func drawRect(rect: CGRect) {
         let ctx:CGContextRef = UIGraphicsGetCurrentContext()!
         CGContextSaveGState(ctx)
