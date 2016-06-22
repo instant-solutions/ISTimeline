@@ -110,20 +110,20 @@ class ISTimeline: UIScrollView {
     
     private func buildSections() {
         let gap:CGFloat = 15.0
-        var y:CGFloat = self.bounds.origin.y
+        var y:CGFloat = self.bounds.origin.y + self.contentInset.top
         for i in 0 ..< points.count {
             let titleLabel = buildTitleLabel(i)
             let descriptionLabel = buildDescriptionLabel(i)
             
-            let titleHeight = titleLabel.intrinsicContentSize().height;
+            let titleHeight = titleLabel.intrinsicContentSize().height
             var height:CGFloat = titleHeight
             if descriptionLabel != nil {
                 height += descriptionLabel!.intrinsicContentSize().height
             }
             
-            let point = CGPointMake(self.bounds.origin.x + lineWidth / 2, y + (titleHeight + gap) / 2)
+            let point = CGPointMake(self.bounds.origin.x + self.contentInset.left + lineWidth / 2, y + (titleHeight + gap) / 2)
             
-            let maxTitleWidth = self.bounds.width - pointDiameter - lineWidth - gap * 1.5
+            let maxTitleWidth = self.bounds.width - (self.contentInset.left + self.contentInset.right) - pointDiameter - lineWidth - gap * 1.5
             var titleWidth = titleLabel.intrinsicContentSize().width + 20
             if (titleWidth > maxTitleWidth) {
                 titleWidth = maxTitleWidth
@@ -139,7 +139,7 @@ class ISTimeline: UIScrollView {
                 descriptionRect = CGRectMake(
                     bubbleRect.origin.x,
                     bubbleRect.origin.y + bubbleRect.height + 3,
-                    self.bounds.width - pointDiameter - lineWidth - gap * 1.5,
+                    self.bounds.width - (self.contentInset.left + self.contentInset.right) - pointDiameter - lineWidth - gap * 1.5,
                     descriptionLabel!.intrinsicContentSize().height)
             }
             
@@ -152,7 +152,7 @@ class ISTimeline: UIScrollView {
         self.layoutIfNeeded()
         
         y += pointDiameter / 2
-        self.contentSize = CGSizeMake(self.bounds.width, y)
+        self.contentSize = CGSizeMake(self.bounds.width - (self.contentInset.left + self.contentInset.right), y)
     }
     
     private func buildTitleLabel(index:Int) -> UILabel {
@@ -161,7 +161,7 @@ class ISTimeline: UIScrollView {
         titleLabel.font = UIFont.boldSystemFontOfSize(12.0)
         titleLabel.lineBreakMode = .ByWordWrapping
         titleLabel.numberOfLines = 0
-        titleLabel.preferredMaxLayoutWidth = self.bounds.width - pointDiameter - lineWidth - 15 * 1.5
+        titleLabel.preferredMaxLayoutWidth = self.bounds.width - (self.contentInset.left + self.contentInset.right) - pointDiameter - lineWidth - 15 * 1.5
         return titleLabel
     }
     
@@ -173,7 +173,7 @@ class ISTimeline: UIScrollView {
             descriptionLabel.font = UIFont.systemFontOfSize(10.0)
             descriptionLabel.lineBreakMode = .ByWordWrapping
             descriptionLabel.numberOfLines = 0
-            descriptionLabel.preferredMaxLayoutWidth = self.bounds.width - pointDiameter - lineWidth - 15 * 1.5
+            descriptionLabel.preferredMaxLayoutWidth = self.bounds.width - (self.contentInset.left + self.contentInset.right) - pointDiameter - lineWidth - 15 * 1.5
             return descriptionLabel
         }
         return nil
