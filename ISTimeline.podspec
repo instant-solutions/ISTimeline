@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.social_media_url   = "https://www.facebook.com/instantsol"
   s.platform     = :ios, "8.0"
 
-  s.source       = { :git => "https://github.com/instant-solutions/ISTimeline.git", :tag => s.version.to_s }
+  s.source       = { :git => "https://github.com/instant-solutions/ISTimeline.git", :tag => "v#{s.version}" }
   s.source_files  = "ISTimeline/**/*.{h,swift}"
   s.exclude_files = "ISTimelineTests"
 
