@@ -11,7 +11,4 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/instant-solutions/ISTimeline.git", :tag => "v#{s.version}" }
   s.source_files  = "ISTimeline/**/*.{h,swift}"
-  s.exclude_files = "ISTimelineTests"
-
-  s.requires_arc = true
 end
