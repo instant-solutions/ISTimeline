@@ -8,7 +8,7 @@ ISTimeline is a simple timeline view written in Swift 2.2
 - Swift 2.2
 
 ## CocoaPods
-We recommend to use CocoaPods:
+We recommend to use [CocoaPods](https://cocoapods.org/):
 
 ```
 pod 'ISTimeline', '~> 0.0.1'
@@ -34,7 +34,7 @@ Or add the view programmatically:
 let frame = CGRectMake(0, 20, 300, 400)
 
 let timeline = ISTimeline(frame: frame)
-timeline.backgroundColor = UIColor.whiteColor()
+timeline.backgroundColor = .whiteColor()
 
 self.view.addSubview(timeline)
 ```
@@ -52,10 +52,8 @@ Example point:
 ```swift
 let point = ISPoint(title: "my title")
 point.description = "my awesome description"
-point.lineColor = UIColor.redColor()
+point.lineColor = .redColor()
 point.fill = true
-
-timeline.points.append(point)
 ```
 
 #### Initializers
@@ -115,6 +113,29 @@ timeline.contentInset = UIEdgeInsetsMake(20.0, 20.0, 20.0, 20.0)
 Per default, the timeline clips all subviews to its bounds. If you would like to change this behavior just set it to `false`.
 ```swift
 timeline.clipsToBounds = false
+```
+
+## Working example
+```swift
+let timeline = ISTimeline(frame: frame)
+timeline.backgroundColor = .whiteColor()
+timeline.bubbleColor = .init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1.0)
+timeline.titleColor = .blackColor()
+timeline.descriptionColor = .darkTextColor()
+timeline.pointDiameter = 7.0
+timeline.lineWidth = 2.0
+timeline.bubbleRadius = 0.0
+
+self.view.addSubview(timeline)
+
+for i in 0...9 {
+  let point = ISPoint(title: "point \(i)")
+  point.description = "my awesome description"
+  point.lineColor = i % 2 == 0 ? .redColor() : .greenColor()
+  point.pointColor = point.lineColor
+
+  timeline.points.append(point)
+}
 ```
 
 ## TODOs
