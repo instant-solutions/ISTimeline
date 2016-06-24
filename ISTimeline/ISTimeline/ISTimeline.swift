@@ -8,11 +8,11 @@
 
 import UIKit
 
-class ISTimeline: UIScrollView {
+public class ISTimeline: UIScrollView {
     
     private static let gap:CGFloat = 15.0
     
-    var pointDiameter:CGFloat = 6.0 {
+    public var pointDiameter:CGFloat = 6.0 {
         didSet {
             if (pointDiameter < 0.0) {
                 pointDiameter = 0.0
@@ -22,7 +22,7 @@ class ISTimeline: UIScrollView {
         }
     }
     
-    var lineWidth:CGFloat = 2.0 {
+    public var lineWidth:CGFloat = 2.0 {
         didSet {
             if (lineWidth < 0.0) {
                 lineWidth = 0.0
@@ -32,7 +32,7 @@ class ISTimeline: UIScrollView {
         }
     }
     
-    var bubbleRadius:CGFloat = 2.0 {
+    public var bubbleRadius:CGFloat = 2.0 {
         didSet {
             if (bubbleRadius < 0.0) {
                 bubbleRadius = 0.0
@@ -42,11 +42,11 @@ class ISTimeline: UIScrollView {
         }
     }
     
-    var bubbleColor:UIColor = .init(red: 0.75, green: 0.75, blue: 0.75, alpha: 1.0)
-    var titleColor:UIColor = .whiteColor()
-    var descriptionColor:UIColor = .grayColor()
+    public var bubbleColor:UIColor = .init(red: 0.75, green: 0.75, blue: 0.75, alpha: 1.0)
+    public var titleColor:UIColor = .whiteColor()
+    public var descriptionColor:UIColor = .grayColor()
     
-    var points:[ISPoint] = [] {
+    public var points:[ISPoint] = [] {
         didSet {
             self.layer.sublayers?.forEach({ (let layer:CALayer) in
                 if layer.isKindOfClass(CAShapeLayer) {
@@ -69,12 +69,12 @@ class ISTimeline: UIScrollView {
     
     private var sections:[(point:CGPoint, bubbleRect:CGRect, descriptionRect:CGRect?, titleLabel:UILabel, descriptionLabel:UILabel?, pointColor:CGColor, lineColor:CGColor, fill:Bool)] = []
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initialize()
     }
@@ -83,7 +83,7 @@ class ISTimeline: UIScrollView {
         self.clipsToBounds = true
     }
     
-    override func drawRect(rect: CGRect) {
+    override public func drawRect(rect: CGRect) {
         let ctx:CGContextRef = UIGraphicsGetCurrentContext()!
         CGContextSaveGState(ctx)
         
@@ -236,7 +236,7 @@ class ISTimeline: UIScrollView {
         self.addSubview(descriptionLabel)
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let point = touches.first!.locationInView(self)
         for (index, section) in sections.enumerate() {
             if (section.bubbleRect.contains(point)) {
