@@ -11,7 +11,7 @@ ISTimeline is a simple timeline view written in Swift 2.2
 We recommend to use [CocoaPods](https://cocoapods.org/):
 
 ```
-pod 'ISTimeline', '~> 0.0.1'
+pod 'ISTimeline', '~> 0.0.2'
 ```
 
 Or just drop the files ISPoint.swift and ISTimeline.swift into your project.
