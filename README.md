@@ -75,6 +75,16 @@ Or even this one:
 ISPoint(title:String)
 ```
 
+#### Touch events
+To get touch events you just have to set a callback closure to the property `point.touchUpInside`. It is triggered after a touch up inside a bubble.
+
+```swift
+point.touchUpInside =
+  { (point:ISPoint) in
+    // do something
+}
+```
+
 ### Add points to the timeline
 To add points to the timeline you can simple create and set your points array to the property `timeline.points` or you can append each point one after the other.
 ```swift
@@ -133,6 +143,10 @@ for i in 0...9 {
   point.description = "my awesome description"
   point.lineColor = i % 2 == 0 ? .redColor() : .greenColor()
   point.pointColor = point.lineColor
+  point.touchUpInside =
+    { (point:ISPoint) in
+      print(point.title)
+  }
 
   timeline.points.append(point)
 }
