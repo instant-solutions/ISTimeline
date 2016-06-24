@@ -10,6 +10,8 @@ import UIKit
 
 class ISTimeline: UIScrollView {
     
+    private static let gap:CGFloat = 15.0
+    
     var pointDiameter:CGFloat = 6.0 {
         didSet {
             if (pointDiameter < 0.0) {
@@ -109,7 +111,6 @@ class ISTimeline: UIScrollView {
     }
     
     private func buildSections() {
-        let gap:CGFloat = 15.0
         var y:CGFloat = self.bounds.origin.y + self.contentInset.top
         for i in 0 ..< points.count {
             let titleLabel = buildTitleLabel(i)
@@ -121,9 +122,9 @@ class ISTimeline: UIScrollView {
                 height += descriptionLabel!.intrinsicContentSize().height
             }
             
-            let point = CGPointMake(self.bounds.origin.x + self.contentInset.left + lineWidth / 2, y + (titleHeight + gap) / 2)
+            let point = CGPointMake(self.bounds.origin.x + self.contentInset.left + lineWidth / 2, y + (titleHeight + ISTimeline.gap) / 2)
             
-            let maxTitleWidth = self.bounds.width - (self.contentInset.left + self.contentInset.right) - pointDiameter - lineWidth - gap * 1.5
+            let maxTitleWidth = calcWidth()
             var titleWidth = titleLabel.intrinsicContentSize().width + 20
             if (titleWidth > maxTitleWidth) {
                 titleWidth = maxTitleWidth
@@ -132,21 +133,21 @@ class ISTimeline: UIScrollView {
                 point.x + pointDiameter + lineWidth / 2 + 13,
                 y + pointDiameter / 2,
                 titleWidth,
-                titleHeight + gap)
+                titleHeight + ISTimeline.gap)
             
             var descriptionRect:CGRect?
             if descriptionLabel != nil {
                 descriptionRect = CGRectMake(
                     bubbleRect.origin.x,
                     bubbleRect.origin.y + bubbleRect.height + 3,
-                    self.bounds.width - (self.contentInset.left + self.contentInset.right) - pointDiameter - lineWidth - gap * 1.5,
+                    calcWidth(),
                     descriptionLabel!.intrinsicContentSize().height)
             }
             
             sections.append((point, bubbleRect, descriptionRect, titleLabel, descriptionLabel, points[i].pointColor.CGColor, points[i].lineColor.CGColor, points[i].fill))
             
             y += height
-            y += gap * 2.2 // section gap
+            y += ISTimeline.gap * 2.2 // section gap
         }
         self.setNeedsLayout()
         self.layoutIfNeeded()
@@ -161,7 +162,7 @@ class ISTimeline: UIScrollView {
         titleLabel.font = UIFont.boldSystemFontOfSize(12.0)
         titleLabel.lineBreakMode = .ByWordWrapping
         titleLabel.numberOfLines = 0
-        titleLabel.preferredMaxLayoutWidth = self.bounds.width - (self.contentInset.left + self.contentInset.right) - pointDiameter - lineWidth - 15 * 1.5
+        titleLabel.preferredMaxLayoutWidth = calcWidth()
         return titleLabel
     }
     
@@ -173,10 +174,14 @@ class ISTimeline: UIScrollView {
             descriptionLabel.font = UIFont.systemFontOfSize(10.0)
             descriptionLabel.lineBreakMode = .ByWordWrapping
             descriptionLabel.numberOfLines = 0
-            descriptionLabel.preferredMaxLayoutWidth = self.bounds.width - (self.contentInset.left + self.contentInset.right) - pointDiameter - lineWidth - 15 * 1.5
+            descriptionLabel.preferredMaxLayoutWidth = calcWidth()
             return descriptionLabel
         }
         return nil
+    }
+    
+    private func calcWidth() -> CGFloat {
+        return self.bounds.width - (self.contentInset.left + self.contentInset.right) - pointDiameter - lineWidth - ISTimeline.gap * 1.5
     }
     
     private func drawLine(start:CGPoint, end:CGPoint, color:CGColor) {
