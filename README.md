@@ -113,6 +113,14 @@ Some common parameters can be adjusted:
 `var lineWidth:CGFloat` the thickness of the line (default `2.0`)  
 `var bubbleRadius:CGFloat` the radius of the bubble corners (default `2.0`)  
 
+### Bubble arrows
+With the flag `var bubbleArrows:Bool` it is possible to remove all arrows (default `true`).  
+With arrows:  
+![Bubble with arrow](/screenshots/bubble_with_arrow.png "Bubble with arrow")
+
+And without arrows:  
+![Bubble without arrow](/screenshots/bubble_without_arrow.png "Bubble without arrow")
+
 ### Intents
 You can add some padding by setting the content insets. This currently can only be done programmatically.
 ```swift
