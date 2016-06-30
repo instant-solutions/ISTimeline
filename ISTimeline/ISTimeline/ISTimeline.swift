@@ -67,6 +67,8 @@ public class ISTimeline: UIScrollView {
         }
     }
     
+    public var bubbleArrows:Bool = true
+    
     private var sections:[(point:CGPoint, bubbleRect:CGRect, descriptionRect:CGRect?, titleLabel:UILabel, descriptionLabel:UILabel?, pointColor:CGColor, lineColor:CGColor, fill:Bool)] = []
     
     override public init(frame: CGRect) {
@@ -129,8 +131,9 @@ public class ISTimeline: UIScrollView {
             if (titleWidth > maxTitleWidth) {
                 titleWidth = maxTitleWidth
             }
+            let offset:CGFloat = bubbleArrows ? 13 : 5
             let bubbleRect = CGRectMake(
-                point.x + pointDiameter + lineWidth / 2 + 13,
+                point.x + pointDiameter + lineWidth / 2 + offset,
                 y + pointDiameter / 2,
                 titleWidth,
                 titleHeight + ISTimeline.gap)
@@ -212,11 +215,13 @@ public class ISTimeline: UIScrollView {
     private func drawBubble(rect:CGRect, backgroundColor:UIColor, textColor:UIColor, titleLabel:UILabel) {
         let path = UIBezierPath(roundedRect: rect, cornerRadius: bubbleRadius)
         
-        let startPoint = CGPointMake(rect.origin.x, rect.origin.y + rect.height / 2 - 8)
-        path.moveToPoint(startPoint)
-        path.addLineToPoint(startPoint)
-        path.addLineToPoint(CGPointMake(rect.origin.x - 8, rect.origin.y + rect.height / 2))
-        path.addLineToPoint(CGPointMake(rect.origin.x, rect.origin.y + rect.height / 2 + 8))
+        if bubbleArrows {
+            let startPoint = CGPointMake(rect.origin.x, rect.origin.y + rect.height / 2 - 8)
+            path.moveToPoint(startPoint)
+            path.addLineToPoint(startPoint)
+            path.addLineToPoint(CGPointMake(rect.origin.x - 8, rect.origin.y + rect.height / 2))
+            path.addLineToPoint(CGPointMake(rect.origin.x, rect.origin.y + rect.height / 2 + 8))
+        }
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.CGPath
