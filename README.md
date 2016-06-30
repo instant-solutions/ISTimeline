@@ -24,7 +24,7 @@ import ISTimeline
 ```
 
 ### Integration
-We recommend to use the timeline view in your storyboard. Just add a plain view and set the custom class property to `ISTimeline`.
+We recommend to use the timeline view in your storyboard. Just add a plain view and set the custom class and the module property to `ISTimeline`.
 
 ![Custom class](/screenshots/custom_class.png "Custom class")
 
@@ -153,6 +153,7 @@ for i in 0...9 {
 ```
 
 ## TODOs
+- [ ] add a demo app
 - [ ] show images in the timeline
 - [ ] animate the appending and removing of an entry
 
