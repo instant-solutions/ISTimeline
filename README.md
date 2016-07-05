@@ -1,10 +1,10 @@
 # ISTimeline
 ISTimeline is a simple timeline view written in Swift 2.2
 
-[![Releases](https://img.shields.io/github/release/instant-solutions/ISTimeline.svg?maxAge=2592000)](https://github.com/instant-solutions/ISTimeline/releases)
-[![CocoaPods](https://img.shields.io/cocoapods/v/ISTimeline.svg?maxAge=2592000)](#cocoapods)
+[![Latest release](https://img.shields.io/github/release/instant-solutions/ISTimeline.svg)](https://github.com/instant-solutions/ISTimeline/releases)
+[![CocoaPods](https://img.shields.io/cocoapods/v/ISTimeline.svg)](#cocoapods)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](#carthage)
-[![License](https://img.shields.io/github/license/instant-solutions/ISTimeline.svg?maxAge=2592000)](LICENSE)
+[![License](https://img.shields.io/github/license/instant-solutions/ISTimeline.svg)](LICENSE)
 
 ![ISTimeline](/screenshots/timeline.png "ISTimeline")
 
