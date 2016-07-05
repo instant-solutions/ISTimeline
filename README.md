@@ -1,20 +1,36 @@
 # ISTimeline
 ISTimeline is a simple timeline view written in Swift 2.2
 
+[![GitHub release](https://img.shields.io/github/release/instant-solutions/ISTimeline.svg?maxAge=2592000)](releases)
+[![CocoaPods](https://img.shields.io/cocoapods/v/ISTimeline.svg?maxAge=2592000)](#cocoapods)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](#carthage)
+[![license](https://img.shields.io/github/license/instant-solutions/ISTimeline.svg?maxAge=2592000)](LICENSE)
+
 ![ISTimeline](/screenshots/timeline.png "ISTimeline")
 
 ## Requirements
 - iOS 8.0 or higher
 - Swift 2.2
 
-## CocoaPods
-We recommend to use [CocoaPods](https://cocoapods.org/):
+## Installation
+
+### CocoaPods
+ISTimeline is available through [CocoaPods](https://cocoapods.org/). To install it, simply add the following line to your Podfile:
 
 ```
-pod 'ISTimeline', '~> 0.0.3'
+pod 'ISTimeline', '~> 0.0.4'
 ```
 
-Or just drop the files ISPoint.swift and ISTimeline.swift into your project.
+### Carthage
+ISTimeline is also available through [Carthage](https://github.com/Carthage/Carthage). Include the following line into your Cartfile and follow the instructions under [getting started](https://github.com/Carthage/Carthage#getting-started):
+
+```
+github "instant-solutions/ISTimeline" ~> 0.0.4
+```
+
+### Manually
+
+Just drop the files ISPoint.swift and ISTimeline.swift into your project.
 
 ## Usage
 
