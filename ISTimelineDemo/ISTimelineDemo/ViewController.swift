@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import ISTimeline
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var timeline: ISTimeline!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
