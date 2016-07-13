@@ -12,7 +12,25 @@
 		8435EBD11D3669AE0077AF4E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8435EBCF1D3669AE0077AF4E /* Main.storyboard */; };
 		8435EBD31D3669AE0077AF4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8435EBD21D3669AE0077AF4E /* Assets.xcassets */; };
 		8435EBD61D3669AE0077AF4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8435EBD41D3669AE0077AF4E /* LaunchScreen.storyboard */; };
+		8435EBF11D366BE00077AF4E /* ISTimeline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8435EBEE1D366BBC0077AF4E /* ISTimeline.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8435EBED1D366BBC0077AF4E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8435EBE81D366BBC0077AF4E /* ISTimeline.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8454988E1CDE6BAC0003C9D8;
+			remoteInfo = ISTimeline;
+		};
+		8435EBEF1D366BBC0077AF4E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8435EBE81D366BBC0077AF4E /* ISTimeline.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 845498981CDE6BAC0003C9D8;
+			remoteInfo = ISTimelineTests;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		8435EBC81D3669AE0077AF4E /* ISTimelineDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ISTimelineDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -22,6 +40,7 @@
 		8435EBD21D3669AE0077AF4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8435EBD51D3669AE0077AF4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8435EBD71D3669AE0077AF4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8435EBE81D366BBC0077AF4E /* ISTimeline.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ISTimeline.xcodeproj; path = ../ISTimeline/ISTimeline.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8435EBF11D366BE00077AF4E /* ISTimeline.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +58,7 @@
 		8435EBBF1D3669AE0077AF4E = {
 			isa = PBXGroup;
 			children = (
+				8435EBE81D366BBC0077AF4E /* ISTimeline.xcodeproj */,
 				8435EBCA1D3669AE0077AF4E /* ISTimelineDemo */,
 				8435EBC91D3669AE0077AF4E /* Products */,
 			);
@@ -62,6 +83,15 @@
 				8435EBD71D3669AE0077AF4E /* Info.plist */,
 			);
 			path = ISTimelineDemo;
+			sourceTree = "<group>";
+		};
+		8435EBE91D366BBC0077AF4E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8435EBEE1D366BBC0077AF4E /* ISTimeline.framework */,
+				8435EBF01D366BBC0077AF4E /* ISTimelineTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -110,12 +140,35 @@
 			mainGroup = 8435EBBF1D3669AE0077AF4E;
 			productRefGroup = 8435EBC91D3669AE0077AF4E /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8435EBE91D366BBC0077AF4E /* Products */;
+					ProjectRef = 8435EBE81D366BBC0077AF4E /* ISTimeline.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8435EBC71D3669AE0077AF4E /* ISTimelineDemo */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		8435EBEE1D366BBC0077AF4E /* ISTimeline.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ISTimeline.framework;
+			remoteRef = 8435EBED1D366BBC0077AF4E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8435EBF01D366BBC0077AF4E /* ISTimelineTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ISTimelineTests.xctest;
+			remoteRef = 8435EBEF1D366BBC0077AF4E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8435EBC61D3669AE0077AF4E /* Resources */ = {
@@ -199,7 +252,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -238,7 +291,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -251,7 +304,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ISTimelineDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = at.tripwire.ISTimelineDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = at.tripwire.istimelinedemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -262,7 +315,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ISTimelineDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = at.tripwire.ISTimelineDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = at.tripwire.istimelinedemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
