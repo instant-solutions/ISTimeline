@@ -113,6 +113,9 @@ public class ISTimeline: UIScrollView {
     }
     
     private func buildSections() {
+        self.setNeedsLayout()
+        self.layoutIfNeeded()
+        
         var y:CGFloat = self.bounds.origin.y + self.contentInset.top
         for i in 0 ..< points.count {
             let titleLabel = buildTitleLabel(i)
@@ -131,6 +134,7 @@ public class ISTimeline: UIScrollView {
             if (titleWidth > maxTitleWidth) {
                 titleWidth = maxTitleWidth
             }
+            
             let offset:CGFloat = bubbleArrows ? 13 : 5
             let bubbleRect = CGRectMake(
                 point.x + pointDiameter + lineWidth / 2 + offset,
@@ -152,9 +156,6 @@ public class ISTimeline: UIScrollView {
             y += height
             y += ISTimeline.gap * 2.2 // section gap
         }
-        self.setNeedsLayout()
-        self.layoutIfNeeded()
-        
         y += pointDiameter / 2
         self.contentSize = CGSizeMake(self.bounds.width - (self.contentInset.left + self.contentInset.right), y)
     }
