@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "ISTimeline"
-  s.version      = "0.0.4"
+  s.version      = "0.0.5"
   s.summary      = "ISTimeline is a simple timeline view written in Swift 2.2"
   s.homepage     = "https://github.com/instant-solutions/ISTimeline"
 
