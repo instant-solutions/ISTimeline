@@ -151,6 +151,7 @@ timeline.clipsToBounds = false
 
 ## Working example
 ```swift
+let frame = CGRectMake(0, 20, 300, 400)
 let timeline = ISTimeline(frame: frame)
 timeline.backgroundColor = .whiteColor()
 timeline.bubbleColor = .init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1.0)
@@ -176,8 +177,11 @@ for i in 0...9 {
 }
 ```
 
+## Demo
+
+ISTimelineDemo is a simple demo app which shows the usage of ISTimeline in a storyboard.
+
 ## TODOs
-- [ ] add a demo app
 - [ ] show images in the timeline
 - [ ] animate the appending and removing of an entry
 
