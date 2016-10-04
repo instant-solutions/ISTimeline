@@ -8,11 +8,11 @@
 
 import UIKit
 
-public class ISTimeline: UIScrollView {
+open class ISTimeline: UIScrollView {
     
-    private static let gap:CGFloat = 15.0
+    fileprivate static let gap:CGFloat = 15.0
     
-    public var pointDiameter:CGFloat = 6.0 {
+    open var pointDiameter:CGFloat = 6.0 {
         didSet {
             if (pointDiameter < 0.0) {
                 pointDiameter = 0.0
@@ -22,7 +22,7 @@ public class ISTimeline: UIScrollView {
         }
     }
     
-    public var lineWidth:CGFloat = 2.0 {
+    open var lineWidth:CGFloat = 2.0 {
         didSet {
             if (lineWidth < 0.0) {
                 lineWidth = 0.0
@@ -32,7 +32,7 @@ public class ISTimeline: UIScrollView {
         }
     }
     
-    public var bubbleRadius:CGFloat = 2.0 {
+    open var bubbleRadius:CGFloat = 2.0 {
         didSet {
             if (bubbleRadius < 0.0) {
                 bubbleRadius = 0.0
@@ -42,22 +42,22 @@ public class ISTimeline: UIScrollView {
         }
     }
     
-    public var bubbleColor:UIColor = .init(red: 0.75, green: 0.75, blue: 0.75, alpha: 1.0)
-    public var titleColor:UIColor = .whiteColor()
-    public var descriptionColor:UIColor = .grayColor()
+    open var bubbleColor:UIColor = .init(red: 0.75, green: 0.75, blue: 0.75, alpha: 1.0)
+    open var titleColor:UIColor = .white
+    open var descriptionColor:UIColor = .gray
     
-    public var points:[ISPoint] = [] {
+    open var points:[ISPoint] = [] {
         didSet {
-            self.layer.sublayers?.forEach({ (let layer:CALayer) in
-                if layer.isKindOfClass(CAShapeLayer) {
+            self.layer.sublayers?.forEach({ (layer:CALayer) in
+                if layer.isKind(of: CAShapeLayer.self) {
                     layer.removeFromSuperlayer()
                 }
             })
-            self.subviews.forEach { (let view:UIView) in
+            self.subviews.forEach { (view:UIView) in
                 view.removeFromSuperview()
             }
             
-            self.contentSize = CGSizeZero
+            self.contentSize = CGSize.zero
             
             sections.removeAll()
             buildSections()
@@ -67,9 +67,9 @@ public class ISTimeline: UIScrollView {
         }
     }
     
-    public var bubbleArrows:Bool = true
+    open var bubbleArrows:Bool = true
     
-    private var sections:[(point:CGPoint, bubbleRect:CGRect, descriptionRect:CGRect?, titleLabel:UILabel, descriptionLabel:UILabel?, pointColor:CGColor, lineColor:CGColor, fill:Bool)] = []
+    fileprivate var sections:[(point:CGPoint, bubbleRect:CGRect, descriptionRect:CGRect?, titleLabel:UILabel, descriptionLabel:UILabel?, pointColor:CGColor, lineColor:CGColor, fill:Bool)] = []
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -81,13 +81,13 @@ public class ISTimeline: UIScrollView {
         initialize()
     }
     
-    private func initialize() {
+    fileprivate func initialize() {
         self.clipsToBounds = true
     }
     
-    override public func drawRect(rect: CGRect) {
-        let ctx:CGContextRef = UIGraphicsGetCurrentContext()!
-        CGContextSaveGState(ctx)
+    override open func draw(_ rect: CGRect) {
+        let ctx:CGContext = UIGraphicsGetCurrentContext()!
+        ctx.saveGState()
         
         for i in 0 ..< sections.count {
             if (i < sections.count - 1) {
@@ -109,10 +109,10 @@ public class ISTimeline: UIScrollView {
             }
         }
         
-        CGContextRestoreGState(ctx)
+        ctx.restoreGState()
     }
     
-    private func buildSections() {
+    fileprivate func buildSections() {
         self.setNeedsLayout()
         self.layoutIfNeeded()
         
@@ -121,62 +121,62 @@ public class ISTimeline: UIScrollView {
             let titleLabel = buildTitleLabel(i)
             let descriptionLabel = buildDescriptionLabel(i)
             
-            let titleHeight = titleLabel.intrinsicContentSize().height
+            let titleHeight = titleLabel.intrinsicContentSize.height
             var height:CGFloat = titleHeight
             if descriptionLabel != nil {
-                height += descriptionLabel!.intrinsicContentSize().height
+                height += descriptionLabel!.intrinsicContentSize.height
             }
             
-            let point = CGPointMake(self.bounds.origin.x + self.contentInset.left + lineWidth / 2, y + (titleHeight + ISTimeline.gap) / 2)
+            let point = CGPoint(x: self.bounds.origin.x + self.contentInset.left + lineWidth / 2, y: y + (titleHeight + ISTimeline.gap) / 2)
             
             let maxTitleWidth = calcWidth()
-            var titleWidth = titleLabel.intrinsicContentSize().width + 20
+            var titleWidth = titleLabel.intrinsicContentSize.width + 20
             if (titleWidth > maxTitleWidth) {
                 titleWidth = maxTitleWidth
             }
             
             let offset:CGFloat = bubbleArrows ? 13 : 5
-            let bubbleRect = CGRectMake(
-                point.x + pointDiameter + lineWidth / 2 + offset,
-                y + pointDiameter / 2,
-                titleWidth,
-                titleHeight + ISTimeline.gap)
+            let bubbleRect = CGRect(
+                x: point.x + pointDiameter + lineWidth / 2 + offset,
+                y: y + pointDiameter / 2,
+                width: titleWidth,
+                height: titleHeight + ISTimeline.gap)
             
             var descriptionRect:CGRect?
             if descriptionLabel != nil {
-                descriptionRect = CGRectMake(
-                    bubbleRect.origin.x,
-                    bubbleRect.origin.y + bubbleRect.height + 3,
-                    calcWidth(),
-                    descriptionLabel!.intrinsicContentSize().height)
+                descriptionRect = CGRect(
+                    x: bubbleRect.origin.x,
+                    y: bubbleRect.origin.y + bubbleRect.height + 3,
+                    width: calcWidth(),
+                    height: descriptionLabel!.intrinsicContentSize.height)
             }
             
-            sections.append((point, bubbleRect, descriptionRect, titleLabel, descriptionLabel, points[i].pointColor.CGColor, points[i].lineColor.CGColor, points[i].fill))
+            sections.append((point, bubbleRect, descriptionRect, titleLabel, descriptionLabel, points[i].pointColor.cgColor, points[i].lineColor.cgColor, points[i].fill))
             
             y += height
             y += ISTimeline.gap * 2.2 // section gap
         }
         y += pointDiameter / 2
-        self.contentSize = CGSizeMake(self.bounds.width - (self.contentInset.left + self.contentInset.right), y)
+        self.contentSize = CGSize(width: self.bounds.width - (self.contentInset.left + self.contentInset.right), height: y)
     }
     
-    private func buildTitleLabel(index:Int) -> UILabel {
+    fileprivate func buildTitleLabel(_ index:Int) -> UILabel {
         let titleLabel = UILabel()
         titleLabel.text = points[index].title
-        titleLabel.font = UIFont.boldSystemFontOfSize(12.0)
-        titleLabel.lineBreakMode = .ByWordWrapping
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 12.0)
+        titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         titleLabel.preferredMaxLayoutWidth = calcWidth()
         return titleLabel
     }
     
-    private func buildDescriptionLabel(index:Int) -> UILabel? {
+    fileprivate func buildDescriptionLabel(_ index:Int) -> UILabel? {
         let text = points[index].description
         if (text != nil) {
             let descriptionLabel = UILabel()
             descriptionLabel.text = text
-            descriptionLabel.font = UIFont.systemFontOfSize(10.0)
-            descriptionLabel.lineBreakMode = .ByWordWrapping
+            descriptionLabel.font = UIFont.systemFont(ofSize: 10.0)
+            descriptionLabel.lineBreakMode = .byWordWrapping
             descriptionLabel.numberOfLines = 0
             descriptionLabel.preferredMaxLayoutWidth = calcWidth()
             return descriptionLabel
@@ -184,69 +184,69 @@ public class ISTimeline: UIScrollView {
         return nil
     }
     
-    private func calcWidth() -> CGFloat {
+    fileprivate func calcWidth() -> CGFloat {
         return self.bounds.width - (self.contentInset.left + self.contentInset.right) - pointDiameter - lineWidth - ISTimeline.gap * 1.5
     }
     
-    private func drawLine(start:CGPoint, end:CGPoint, color:CGColor) {
+    fileprivate func drawLine(_ start:CGPoint, end:CGPoint, color:CGColor) {
         let path = UIBezierPath()
-        path.moveToPoint(start)
-        path.addLineToPoint(end)
+        path.move(to: start)
+        path.addLine(to: end)
         
         let shapeLayer = CAShapeLayer()
-        shapeLayer.path = path.CGPath
+        shapeLayer.path = path.cgPath
         shapeLayer.strokeColor = color
         shapeLayer.lineWidth = lineWidth
         
         self.layer.addSublayer(shapeLayer)
     }
     
-    private func drawPoint(point:CGPoint, color:CGColor, fill:Bool) {
-        let path = UIBezierPath(ovalInRect: CGRect(x: point.x, y: point.y, width: pointDiameter, height: pointDiameter))
+    fileprivate func drawPoint(_ point:CGPoint, color:CGColor, fill:Bool) {
+        let path = UIBezierPath(ovalIn: CGRect(x: point.x, y: point.y, width: pointDiameter, height: pointDiameter))
         
         let shapeLayer = CAShapeLayer()
-        shapeLayer.path = path.CGPath
+        shapeLayer.path = path.cgPath
         shapeLayer.strokeColor = color
-        shapeLayer.fillColor = fill ? color : UIColor.clearColor().CGColor
+        shapeLayer.fillColor = fill ? color : UIColor.clear.cgColor
         shapeLayer.lineWidth = lineWidth
         
         self.layer.addSublayer(shapeLayer)
     }
     
-    private func drawBubble(rect:CGRect, backgroundColor:UIColor, textColor:UIColor, titleLabel:UILabel) {
+    fileprivate func drawBubble(_ rect:CGRect, backgroundColor:UIColor, textColor:UIColor, titleLabel:UILabel) {
         let path = UIBezierPath(roundedRect: rect, cornerRadius: bubbleRadius)
         
         if bubbleArrows {
-            let startPoint = CGPointMake(rect.origin.x, rect.origin.y + rect.height / 2 - 8)
-            path.moveToPoint(startPoint)
-            path.addLineToPoint(startPoint)
-            path.addLineToPoint(CGPointMake(rect.origin.x - 8, rect.origin.y + rect.height / 2))
-            path.addLineToPoint(CGPointMake(rect.origin.x, rect.origin.y + rect.height / 2 + 8))
+            let startPoint = CGPoint(x: rect.origin.x, y: rect.origin.y + rect.height / 2 - 8)
+            path.move(to: startPoint)
+            path.addLine(to: startPoint)
+            path.addLine(to: CGPoint(x: rect.origin.x - 8, y: rect.origin.y + rect.height / 2))
+            path.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.height / 2 + 8))
         }
         
         let shapeLayer = CAShapeLayer()
-        shapeLayer.path = path.CGPath
-        shapeLayer.fillColor = backgroundColor.CGColor
+        shapeLayer.path = path.cgPath
+        shapeLayer.fillColor = backgroundColor.cgColor
         
         self.layer.addSublayer(shapeLayer)
         
-        let titleRect = CGRectMake(rect.origin.x + 10, rect.origin.y, rect.size.width - 15, rect.size.height - 1)
+        let titleRect = CGRect(x: rect.origin.x + 10, y: rect.origin.y, width: rect.size.width - 15, height: rect.size.height - 1)
         titleLabel.textColor = textColor
         titleLabel.frame = titleRect
         self.addSubview(titleLabel)
     }
     
-    private func drawDescription(rect:CGRect, textColor:UIColor, descriptionLabel:UILabel) {
+    fileprivate func drawDescription(_ rect:CGRect, textColor:UIColor, descriptionLabel:UILabel) {
         descriptionLabel.textColor = textColor
-        descriptionLabel.frame = CGRectMake(rect.origin.x + 7, rect.origin.y, rect.width - 10, rect.height)
+        descriptionLabel.frame = CGRect(x: rect.origin.x + 7, y: rect.origin.y, width: rect.width - 10, height: rect.height)
         self.addSubview(descriptionLabel)
     }
     
-    override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        let point = touches.first!.locationInView(self)
-        for (index, section) in sections.enumerate() {
+    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let point = touches.first!.location(in: self)
+        for (index, section) in sections.enumerated() {
             if (section.bubbleRect.contains(point)) {
-                points[index].touchUpInside?(point: points[index])
+                points[index].touchUpInside?(points[index])
                 break
             }
         }
