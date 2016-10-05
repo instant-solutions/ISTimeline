@@ -1,5 +1,5 @@
 # ISTimeline
-ISTimeline is a simple timeline view written in Swift 2.2
+ISTimeline is a simple timeline view written in Swift 3
 
 [![Latest release](https://img.shields.io/github/release/instant-solutions/ISTimeline.svg)](https://github.com/instant-solutions/ISTimeline/releases)
 [![CocoaPods](https://img.shields.io/cocoapods/v/ISTimeline.svg)](#cocoapods)
@@ -10,7 +10,7 @@ ISTimeline is a simple timeline view written in Swift 2.2
 
 ## Requirements
 - iOS 8.0 or higher
-- Swift 2.2
+- Swift 3
 
 ## Installation
 
