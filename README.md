@@ -18,14 +18,14 @@ ISTimeline is a simple timeline view written in Swift 3
 ISTimeline is available through [CocoaPods](https://cocoapods.org/). To install it, simply add the following line to your Podfile:
 
 ```
-pod 'ISTimeline', '~> 0.0.5'
+pod 'ISTimeline'
 ```
 
 ### Carthage
 ISTimeline is also available through [Carthage](https://github.com/Carthage/Carthage). Include the following line into your Cartfile and follow the instructions under [getting started](https://github.com/Carthage/Carthage#getting-started):
 
 ```
-github "instant-solutions/ISTimeline" ~> 0.0.5
+github "instant-solutions/ISTimeline"
 ```
 
 ### Manually
