@@ -192,3 +192,7 @@ ISTimeline is licensed under the terms of the Apache License 2.0. See the LICENS
 ## Contribution
 
 Feel free to fork the project and send us a pull-request! :sunglasses:
+
+## Author
+
+Made with ❤️ in Austria by [instant:solutions](https://instant-it.at)
