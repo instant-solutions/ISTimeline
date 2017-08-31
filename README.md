@@ -47,10 +47,10 @@ We recommend to use the timeline view in your storyboard. Just add a plain view 
 Or add the view programmatically:
 
 ```swift
-let frame = CGRectMake(0, 20, 300, 400)
+let frame = CGRect(x: 0.0, y: 20.0, width: 300.0, height: 400.0)
 
 let timeline = ISTimeline(frame: frame)
-timeline.backgroundColor = .whiteColor()
+timeline.backgroundColor = .white
 
 self.view.addSubview(timeline)
 ```
@@ -61,29 +61,29 @@ Each bubble is represented by an ISPoint object in the points array. ISPoints ha
 `var description:String?` shown below the bubble  
 `var pointColor:UIColor` the color of each point in the line  
 `var lineColor:UIColor` the color of the line after a point  
-`var touchUpInside:Optional<(point:ISPoint) -> Void>` a callback, which is triggered after a touch inside a bubble  
+`var touchUpInside:Optional<(_ point:ISPoint) -> Void>` a callback, which is triggered after a touch inside a bubble  
 `var fill:Bool` fills the point in the line (default: `false`)
 
 Example point:
 ```swift
 let point = ISPoint(title: "my title")
 point.description = "my awesome description"
-point.lineColor = .redColor()
+point.lineColor = .red
 point.fill = true
 ```
 
 #### Initializers
 The designated initializer is:
 ```swift
-ISPoint(title:String, description:String, pointColor:UIColor, lineColor:UIColor, touchUpInside:Optional<(point:ISPoint) -> Void>, fill:Bool)
+ISPoint(title:String, description:String, pointColor:UIColor, lineColor:UIColor, touchUpInside:Optional<(_ point:ISPoint) -> Void>, fill:Bool)
 ```
 
 You also can use one the convenience initializers:
 ```swift
-ISPoint(title:String, description:String, touchUpInside:Optional<(point:ISPoint) -> Void>)
+ISPoint(title:String, description:String, touchUpInside:Optional<(_ point:ISPoint) -> Void>)
 ```
 ```swift
-ISPoint(title:String, touchUpInside:Optional<(point:ISPoint) -> Void>)
+ISPoint(title:String, touchUpInside:Optional<(_ point:ISPoint) -> Void>)
 ```
 
 Or even this one:
@@ -111,7 +111,7 @@ let myPoints = [
 ]
 timeline.points = myPoints
 ```
-Append points:
+Append a single point:
 ```swift
 timeline.points.append(ISPoint(title: "fourth"))
 ```
@@ -119,8 +119,8 @@ timeline.points.append(ISPoint(title: "fourth"))
 ### Colors
 You can customize the following timeline colors:  
 `var bubbleColor:UIColor` color of every bubble (default `.init(red: 0.75, green: 0.75, blue: 0.75, alpha: 1.0)`)  
-`var titleColor:UIColor` color of the title in the bubble (default `.whiteColor()`)  
-`var descriptionColor:UIColor` color the description text (default `.grayColor()`)  
+`var titleColor:UIColor` color of the title in the bubble (default `.white`)  
+`var descriptionColor:UIColor` color the description text (default `.gray`)  
 Points can be colored as described above.
 
 ### Line width and point radius
@@ -151,12 +151,12 @@ timeline.clipsToBounds = false
 
 ## Working example
 ```swift
-let frame = CGRectMake(0, 20, 300, 400)
+let frame = CGRect(x: 0.0, y: 20.0, width: 300.0, height: 400.0)
 let timeline = ISTimeline(frame: frame)
-timeline.backgroundColor = .whiteColor()
+timeline.backgroundColor = .white
 timeline.bubbleColor = .init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1.0)
-timeline.titleColor = .blackColor()
-timeline.descriptionColor = .darkTextColor()
+timeline.titleColor = .black
+timeline.descriptionColor = .darkText
 timeline.pointDiameter = 7.0
 timeline.lineWidth = 2.0
 timeline.bubbleRadius = 0.0
@@ -164,16 +164,16 @@ timeline.bubbleRadius = 0.0
 self.view.addSubview(timeline)
 
 for i in 0...9 {
-  let point = ISPoint(title: "point \(i)")
-  point.description = "my awesome description"
-  point.lineColor = i % 2 == 0 ? .redColor() : .greenColor()
-  point.pointColor = point.lineColor
-  point.touchUpInside =
-    { (point:ISPoint) in
-      print(point.title)
-  }
+    let point = ISPoint(title: "point \(i)")
+    point.description = "my awesome description"
+    point.lineColor = i % 2 == 0 ? .red : .green
+    point.pointColor = point.lineColor
+    point.touchUpInside =
+        { (point:ISPoint) in
+            print(point.title)
+    }
 
-  timeline.points.append(point)
+    timeline.points.append(point)
 }
 ```
 
