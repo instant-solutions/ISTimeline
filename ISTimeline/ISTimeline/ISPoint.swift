@@ -12,9 +12,11 @@ open class ISPoint {
     
     open var title:String
     open var description:String?
+    open var bannerImage:String?
     open var pointColor:UIColor
     open var lineColor:UIColor
     open var touchUpInside:Optional<(_ point:ISPoint) -> Void>
+    open var bannerAction:Optional<(_ point:ISPoint) -> Void>
     open var fill:Bool
     
     public init(title:String, description:String, pointColor:UIColor, lineColor:UIColor, touchUpInside:Optional<(_ point:ISPoint) -> Void>, fill:Bool) {

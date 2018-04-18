@@ -69,7 +69,7 @@ open class ISTimeline: UIScrollView {
     
     open var bubbleArrows:Bool = true
     
-    fileprivate var sections:[(point:CGPoint, bubbleRect:CGRect, descriptionRect:CGRect?, titleLabel:UILabel, descriptionLabel:UILabel?, pointColor:CGColor, lineColor:CGColor, fill:Bool)] = []
+    fileprivate var sections:[(point:CGPoint, bubbleRect:CGRect, descriptionRect:CGRect?, bannerRect:CGRect?, titleLabel:UILabel, descriptionLabel:UILabel?, bannerView:UIImageView?, pointColor:CGColor, lineColor:CGColor, fill:Bool)] = []
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -107,6 +107,11 @@ open class ISTimeline: UIScrollView {
             if (descriptionLabel != nil) {
                 drawDescription(sections[i].descriptionRect!, textColor: descriptionColor, descriptionLabel: sections[i].descriptionLabel!)
             }
+            
+            let bannerView = sections[i].bannerView
+            if (bannerView != nil) {
+                drawBanner(sections[i].bannerRect!, view: bannerView!)
+            }
         }
         
         ctx.restoreGState()
@@ -120,11 +125,17 @@ open class ISTimeline: UIScrollView {
         for i in 0 ..< points.count {
             let titleLabel = buildTitleLabel(i)
             let descriptionLabel = buildDescriptionLabel(i)
+            let bannerView = buildBanner(i)
             
             let titleHeight = titleLabel.intrinsicContentSize.height
             var height:CGFloat = titleHeight
+            
             if descriptionLabel != nil {
                 height += descriptionLabel!.intrinsicContentSize.height
+            }
+            
+            if bannerView != nil {
+                height += bannerView!.intrinsicContentSize.height
             }
             
             let point = CGPoint(x: self.bounds.origin.x + self.contentInset.left + lineWidth / 2, y: y + (titleHeight + ISTimeline.gap) / 2)
@@ -151,7 +162,16 @@ open class ISTimeline: UIScrollView {
                     height: descriptionLabel!.intrinsicContentSize.height)
             }
             
-            sections.append((point, bubbleRect, descriptionRect, titleLabel, descriptionLabel, points[i].pointColor.cgColor, points[i].lineColor.cgColor, points[i].fill))
+            var bannerRect:CGRect?
+            if bannerView != nil {
+                bannerRect = CGRect(
+                    x: descriptionRect!.origin.x,
+                    y: descriptionRect!.origin.y + bubbleRect.height + 3,
+                    width: calcWidth(),
+                    height: bannerView!.intrinsicContentSize.height)
+            }
+            
+            sections.append((point, bubbleRect, descriptionRect, bannerRect, titleLabel, descriptionLabel, bannerView, points[i].pointColor.cgColor, points[i].lineColor.cgColor, points[i].fill))
             
             y += height
             y += ISTimeline.gap * 2.2 // section gap
@@ -180,6 +200,16 @@ open class ISTimeline: UIScrollView {
             descriptionLabel.numberOfLines = 0
             descriptionLabel.preferredMaxLayoutWidth = calcWidth()
             return descriptionLabel
+        }
+        return nil
+    }
+    
+    fileprivate func buildBanner(_ index:Int) -> UIImageView? {
+        let image = points[index].bannerImage
+        if let image = image {
+            let banner = UIImage(named: image)
+            let bannerView = UIImageView(image: banner)
+            return bannerView
         }
         return nil
     }
@@ -242,12 +272,23 @@ open class ISTimeline: UIScrollView {
         self.addSubview(descriptionLabel)
     }
     
+    fileprivate func drawBanner(_ rect:CGRect, view:UIImageView){
+        view.frame = CGRect(x: rect.origin.x + 7, y: rect.origin.y, width: rect.width - 10, height: rect.height)
+        self.addSubview(view)
+    }
+    
     override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let point = touches.first!.location(in: self)
         for (index, section) in sections.enumerated() {
+            
             if (section.bubbleRect.contains(point)) {
                 points[index].touchUpInside?(points[index])
                 break
+            }
+            else if let _ = section.bannerView {
+                if section.bannerRect!.contains(point){
+                    points[index].bannerAction!(points[index])
+                }
             }
         }
     }
