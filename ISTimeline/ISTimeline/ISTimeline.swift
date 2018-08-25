@@ -69,7 +69,7 @@ open class ISTimeline: UIScrollView {
     
     open var bubbleArrows:Bool = true
     
-    fileprivate var sections:[(point:CGPoint, bubbleRect:CGRect, descriptionRect:CGRect?, bannerRect:CGRect?, titleLabel:UILabel, descriptionLabel:UILabel?, bannerView:UIImageView?, pointColor:CGColor, lineColor:CGColor, fill:Bool)] = []
+    fileprivate var sections:[(point:CGPoint, bubbleRect:CGRect, descriptionRect:CGRect?, bannerRect:CGRect?, titleLabel:UILabel, descriptionLabel:UILabel?, bannerView:UIImageView?, pointColor:CGColor, lineColor:CGColor, fill:Bool, bubbleColor:UIColor?)] = []
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -101,7 +101,13 @@ open class ISTimeline: UIScrollView {
                 drawLine(start, end: end, color: sections[i].lineColor)
             }
             drawPoint(sections[i].point, color: sections[i].pointColor, fill: sections[i].fill)
-            drawBubble(sections[i].bubbleRect, backgroundColor: bubbleColor, textColor:titleColor, titleLabel: sections[i].titleLabel)
+            if let pointBubbleColor = sections[i].bubbleColor {
+                drawBubble(sections[i].bubbleRect, backgroundColor: pointBubbleColor, textColor:titleColor, titleLabel: sections[i].titleLabel)
+            }else{
+                drawBubble(sections[i].bubbleRect, backgroundColor: bubbleColor, textColor:titleColor, titleLabel: sections[i].titleLabel)
+            }
+            
+            
             
             let descriptionLabel = sections[i].descriptionLabel
             if (descriptionLabel != nil) {
@@ -171,7 +177,7 @@ open class ISTimeline: UIScrollView {
                     height: bannerView!.intrinsicContentSize.height)
             }
             
-            sections.append((point, bubbleRect, descriptionRect, bannerRect, titleLabel, descriptionLabel, bannerView, points[i].pointColor.cgColor, points[i].lineColor.cgColor, points[i].fill))
+            sections.append((point, bubbleRect, descriptionRect, bannerRect, titleLabel, descriptionLabel, bannerView, points[i].pointColor.cgColor, points[i].lineColor.cgColor, points[i].fill, points[i].bubbleColor))
             
             y += height
             y += ISTimeline.gap * 2.2 // section gap

@@ -61,7 +61,8 @@ Each bubble is represented by an ISPoint object in the points array. ISPoints ha
 `var description:String?` shown below the bubble 
 `var bannerImage:String?` image shown below the description 
 `var pointColor:UIColor` the color of each point in the line  
-`var lineColor:UIColor` the color of the line after a point  
+`var lineColor:UIColor` the color of the line after a point
+`var bubbleColor:UIColor` the color of the bubble for this point    
 `var touchUpInside:Optional<(_ point:ISPoint) -> Void>` a callback, which is triggered after a touch inside a bubble  
 `var fill:Bool` fills the point in the line (default: `false`)
 
@@ -77,11 +78,24 @@ point.fill = true
 #### Initializers
 The designated initializer is:
 ```swift
-ISPoint(title:String, description:String, pointColor:UIColor, lineColor:UIColor, touchUpInside:Optional<(_ point:ISPoint) -> Void>, fill:Bool, bannerImage: "helloworld.jpg")
+ISPoint(title:String, description:String, pointColor:UIColor, lineColor:UIColor, bubbleColor:UIColor, touchUpInside:Optional<(_ point:ISPoint) -> Void>, fill:Bool)
 ```
 
 
+
 You also can use one the convenience initializers:
+```swift
+ISPoint(title:String, description:String, pointColor:UIColor, lineColor:UIColor, touchUpInside:Optional<(_ point:ISPoint) -> Void>, fill:Bool, bannerImage: "helloworld.jpg")
+```
+
+```swift
+ISPoint(title:String, description:String, pointColor:UIColor, lineColor:UIColor, bubbleColor:UIColor, touchUpInside:Optional<(_ point:ISPoint) -> Void>, fill:Bool, bannerImage: "helloworld.jpg")
+```
+
+```swift
+ISPoint(title:String, description:String, pointColor:UIColor, lineColor:UIColor, bubbleColor:UIColor, touchUpInside:Optional<(_ point:ISPoint) -> Void>, fill:Bool)
+```
+
 ```swift
 ISPoint(title:String, description:String, touchUpInside:Optional<(_ point:ISPoint) -> Void>)
 ```

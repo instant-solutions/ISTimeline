@@ -15,6 +15,7 @@ open class ISPoint {
     open var bannerImage:String?
     open var pointColor:UIColor
     open var lineColor:UIColor
+    open var bubbleColor:UIColor?
     open var touchUpInside:Optional<(_ point:ISPoint) -> Void>
     open var bannerAction:Optional<(_ point:ISPoint) -> Void>
     open var fill:Bool
@@ -28,11 +29,32 @@ open class ISPoint {
         self.fill = fill
     }
     
+    public init(title:String, description:String, pointColor:UIColor, lineColor:UIColor, bubbleColor:UIColor, touchUpInside:Optional<(_ point:ISPoint) -> Void>, fill:Bool) {
+        self.title = title
+        self.description = description
+        self.pointColor = pointColor
+        self.lineColor = lineColor
+        self.bubbleColor = bubbleColor
+        self.touchUpInside = touchUpInside
+        self.fill = fill
+    }
+    
     public init(title:String, description:String, pointColor:UIColor, lineColor:UIColor, touchUpInside:Optional<(_ point:ISPoint) -> Void>, fill:Bool, bannerImage:String) {
         self.title = title
         self.description = description
         self.pointColor = pointColor
         self.lineColor = lineColor
+        self.touchUpInside = touchUpInside
+        self.fill = fill
+        self.bannerImage = bannerImage;
+    }
+    
+    public init(title:String, description:String, pointColor:UIColor, lineColor:UIColor,  bubbleColor:UIColor, touchUpInside:Optional<(_ point:ISPoint) -> Void>, fill:Bool, bannerImage:String) {
+        self.title = title
+        self.description = description
+        self.pointColor = pointColor
+        self.lineColor = lineColor
+        self.bubbleColor = bubbleColor
         self.touchUpInside = touchUpInside
         self.fill = fill
         self.bannerImage = bannerImage;
