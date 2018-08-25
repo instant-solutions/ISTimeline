@@ -28,6 +28,16 @@ open class ISPoint {
         self.fill = fill
     }
     
+    public init(title:String, description:String, pointColor:UIColor, lineColor:UIColor, touchUpInside:Optional<(_ point:ISPoint) -> Void>, fill:Bool, bannerImage:String) {
+        self.title = title
+        self.description = description
+        self.pointColor = pointColor
+        self.lineColor = lineColor
+        self.touchUpInside = touchUpInside
+        self.fill = fill
+        self.bannerImage = bannerImage;
+    }
+    
     public convenience init(title:String, description:String, touchUpInside:Optional<(_ point:ISPoint) -> Void>) {
         let defaultColor = UIColor.init(red: 0.75, green: 0.75, blue: 0.75, alpha: 1.0)
         self.init(title: title, description: description, pointColor: defaultColor, lineColor: defaultColor, touchUpInside: touchUpInside, fill: false)
