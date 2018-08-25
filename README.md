@@ -58,7 +58,8 @@ self.view.addSubview(timeline)
 ### ISPoint
 Each bubble is represented by an ISPoint object in the points array. ISPoints has several properties:  
 `var title:String` shown in the bubble  
-`var description:String?` shown below the bubble  
+`var description:String?` shown below the bubble 
+`var bannerImage:String?` image shown below the description 
 `var pointColor:UIColor` the color of each point in the line  
 `var lineColor:UIColor` the color of the line after a point  
 `var touchUpInside:Optional<(_ point:ISPoint) -> Void>` a callback, which is triggered after a touch inside a bubble  
@@ -68,6 +69,7 @@ Example point:
 ```swift
 let point = ISPoint(title: "my title")
 point.description = "my awesome description"
+point.bannerImage = "helloworld.jpg"
 point.lineColor = .red
 point.fill = true
 ```
@@ -75,8 +77,9 @@ point.fill = true
 #### Initializers
 The designated initializer is:
 ```swift
-ISPoint(title:String, description:String, pointColor:UIColor, lineColor:UIColor, touchUpInside:Optional<(_ point:ISPoint) -> Void>, fill:Bool)
+ISPoint(title:String, description:String, pointColor:UIColor, lineColor:UIColor, touchUpInside:Optional<(_ point:ISPoint) -> Void>, fill:Bool, bannerImage: "helloworld.jpg")
 ```
+
 
 You also can use one the convenience initializers:
 ```swift
